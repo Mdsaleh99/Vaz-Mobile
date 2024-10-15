@@ -45,4 +45,12 @@ The aspect-square is a shorthand in Tailwind CSS used to maintain a 1:1 aspect r
 
 The overflow-hidden CSS property prevents content that exceeds the size of the element's box from being visible. This is especially useful when you have content or images that might overflow their container but you want to hide the excess part.
 
+
+
+Grid Layout: Imagine you have a container divided into a grid with multiple columns.
+col-span-1: This means that the element will take up only 1 column of the grid.
+
+For example, if your grid has 12 columns, and you apply col-span-1 to an element, that element will occupy just 1 of those 12 columns.
+It’s useful for laying out items in a responsive and structured way.
+
 */
