@@ -2,6 +2,18 @@ interface IParams {
     productId?: string
 }
 
+// In nextjs components are by default server component. so to make it client component we have to use "use client" in that particular page at top which component we have make client component and we have to use "use client" if we using different hooks in client side component. if we want to backend logic or database connection or access in client side at that time we have to use "use server" in that particular function where we writing backend or server logic
+
+
+// Data Fecthing in nextjs
+// SSR - server side rendering.  this is by default behaviour in nextjs 
+// SSG - static site generation.  Any content which does not have network calls is a static page by default. this is done automatically when we run build command
+// ISR or ISG - 'fetch' in nextjs caches the response. however , there are expections, fetch requests are not catched when:
+// used inside a server action and used inside a route handler that uses the post method. and to opt out use: export const dynamic = 'force-dynamic' this is done automatically when we run build command. agr page bar bar re-render nhi hora hai toh ye use karna hai export const dynamic = 'force-dynamic'
+// https://nextjs.org/docs/app/building-your-application/data-fetching/fetching
+
+
+
 // it is a server component so this is not appear on browser but it will appear on server
 
 // Destructure `params` from the argument and assign it the type `IParams`
