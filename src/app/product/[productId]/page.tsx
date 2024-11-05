@@ -1,3 +1,7 @@
+import Container from "@/app/components/Container";
+import { product } from "@/uitls/product";
+import ProductDetails from "./ProductDetails";
+
 interface IParams {
     productId?: string
 }
@@ -20,10 +24,13 @@ interface IParams {
 const Product = ({params} : {params: IParams}) => {
     // it is dynamic routing. to know more check below
     // console.log(params);  // output: { productId: 'prod' } value can be any thing which given as productId for here it is 'prod' it can be any thing
+
     
     return ( 
         <div>
-            Product Page
+            <Container>
+                <ProductDetails product={product} />
+            </Container>
         </div>
     );
 }
