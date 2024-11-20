@@ -1,13 +1,58 @@
+import Container from "../components/Container";
+import CartClient from "./CartClient";
+
 const Cart = () => {
     // it is file base routing. to know more check below
     return (
-        <div>
-            Cart page
+        <div className="pt-8">
+            <Container>
+              <CartClient />
+            </Container>
         </div>
     );
 }
  
 export default Cart;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 
@@ -165,3 +210,26 @@ export default function HomePage() {
 Next.js also pre-fetches these links automatically to make navigation instant.
 
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

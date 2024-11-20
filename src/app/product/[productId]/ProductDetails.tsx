@@ -3,9 +3,12 @@ import Button from "@/app/components/Button";
 import ProductImage from "@/app/components/products/ProductImage";
 import SetColor from "@/app/components/products/SetColor";
 import SetQuantity from "@/app/components/products/SetQuantity";
+import { useCart } from "@/hooks/useCart";
 import { formatPrice } from "@/uitls/formatPrice";
 import { Rating } from "@mui/material";
-import React, { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useCallback, useEffect, useState } from "react";
+import { MdCheckCircle } from "react-icons/md";
 
 interface ProductDetailsProps {
     product: any
@@ -33,6 +36,15 @@ const Horizontal = () => {
 }
 
 const ProductDetails:React.FC<ProductDetailsProps> = ({product}) => {
+
+    // const {cartTotalQty} = useCart()
+    const {handleAddProductToCart, cartProducts} = useCart()
+
+    const router = useRouter() // This hook allows you to programmatically change routes inside Client Component.
+
+    const [isProductInCart, setIsProductInCart] = useState(false)
+
+
     const [cartProduct, setCartProduct] = useState<CartProductType>({
         id: product.id,
         name: product.name,
@@ -44,8 +56,26 @@ const ProductDetails:React.FC<ProductDetailsProps> = ({product}) => {
         selectedImg: {...product.images[0]},
     })
 
-    console.log(cartProduct);
+    // console.log(cartProduct);
+    // console.log(cartTotalQty);
     
+    console.log(cartProducts);
+
+    
+
+    // whenever the components load we have to check the product is in cart or not so we use here useEffect() hook. to update the state of setIsProductInCart
+    useEffect(() => {
+        setIsProductInCart(false)
+        
+        if(cartProducts){
+            const existingIndex = cartProducts.findIndex((item) => item.id === product.id) // product.id (current product id)
+
+            if(existingIndex > -1){
+                setIsProductInCart(true)
+            }
+        }
+    }, [cartProducts])
+
     
     /*
     
@@ -67,6 +97,11 @@ const ProductDetails:React.FC<ProductDetailsProps> = ({product}) => {
     console.log(rest);  // [2, 3, 4]
 
     */
+
+
+
+    
+
 
     const productRating = product.reviews.reduce((acc: number, currItem: any) => 
         currItem.rating + acc, 0) / product.reviews.length 
@@ -137,13 +172,29 @@ const ProductDetails:React.FC<ProductDetailsProps> = ({product}) => {
                     {formatPrice(product.price)}
                 </div>
                 <Horizontal />
-                <SetColor cartProduct={cartProduct} images={product.images} handleColorSelect={handleColorSelect} />
-                <Horizontal />
-                <SetQuantity cartProduct={cartProduct} handleQtyIncrease={handleQtyIncrease} handleQtyDecrease={handleQtyDecrease} />
-                <Horizontal />
-                <div className="max-w-[300px]">
-                    <Button label="Add to Cart" onClick={() => {}} />
-                </div>
+                {
+                    isProductInCart ? 
+                    <>
+                        <p className="mb-2 text-slate-500 flex items-center gap-1">
+                            <MdCheckCircle size={20} className="text-teal-500 " />
+                            <span>Product added to cart</span>
+                        </p>
+                        <div className="max-w-[300px]">
+                            <Button label="View Cart" outline onClick={() => {
+                                router.push("/cart")
+                            }} />
+                        </div>
+                    </> : 
+                    <>
+                        <SetColor cartProduct={cartProduct} images={product.images} handleColorSelect={handleColorSelect} />
+                        <Horizontal />
+                        <SetQuantity cartProduct={cartProduct} handleQtyIncrease={handleQtyIncrease} handleQtyDecrease={handleQtyDecrease} />
+                        <Horizontal />
+                        <div className="max-w-[300px]">
+                            <Button label="Add to Cart" onClick={() => {handleAddProductToCart(cartProduct)}} />
+                        </div>
+                    </>
+                }
 
             </div>
         </div>
