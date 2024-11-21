@@ -5,8 +5,14 @@ import {toast} from "react-hot-toast";
 
 type CartContextType = {
     cartTotalQty: number,
+    cartTotalAmt: number,
     cartProducts: CartProductType[] | null,
     handleAddProductToCart: (product: CartProductType) => void
+    handleRemoveProductFromCart: (product: CartProductType) => void
+    handleCartQtyIncrease: (product: CartProductType) => void
+    handleCartQtyDecrease: (product: CartProductType) => void
+    handleClearCart: () => void
+    
 }
 
 export const CartContext = createContext<CartContextType | null>(null) // The context will store the cart-related data (cartTotalQty in this case).
@@ -18,8 +24,13 @@ interface Props {
 
 export const CartContextProvider = (props: Props) => {
     
-    const [cartTotalQty, setcartTotalQty] = useState(0)
+    const [cartTotalQty, setCartTotalQty] = useState(0)
     const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null)
+    const [cartTotalAmt, setCartTotalAmt] = useState(0)
+
+    console.log("qty", cartTotalQty);
+    console.log("amount", cartTotalAmt);
+    
 
     useEffect(() => { // we using this because when we click on add to cart button at that time it storing the information in localstorage as we needed but when we refresh the page it showing add to cart button so we using this
 
@@ -29,6 +40,27 @@ export const CartContextProvider = (props: Props) => {
         setCartProducts(cProducts)
 
     }, [])
+
+
+    useEffect(() => {
+        const getTotals = () => {
+            if(cartProducts){
+                const {totalAmt, qty} = cartProducts?.reduce((acc, currItem) => {
+                    const itemTotal = currItem.price * currItem.quantity
+                    acc.totalAmt += itemTotal
+                    acc.qty += currItem.quantity
+    
+                    return acc
+                }, {totalAmt: 0, qty: 0})
+
+
+                setCartTotalQty(qty)
+                setCartTotalAmt(totalAmt)
+            }
+        }
+
+        getTotals()
+    }, [cartProducts])
 
     const handleAddProductToCart = useCallback((product: CartProductType) => {
         setCartProducts((prev) => {
@@ -51,10 +83,79 @@ export const CartContextProvider = (props: Props) => {
     }, [])
 
 
+    const handleRemoveProductFromCart = useCallback((product: CartProductType) => {
+        if(cartProducts){
+            const filterProduct = cartProducts.filter((item) => {
+                return item.id !== product.id
+            })
+
+            setCartProducts(filterProduct)
+            toast.success("Product removed")
+            localStorage.setItem('CartItems', JSON.stringify(filterProduct))
+        }
+
+        
+    }, [cartProducts])
+
+
+    const handleCartQtyIncrease = useCallback((product: CartProductType) => {
+        let updatedCart
+        if(product.quantity === 99){
+            return toast.error("Ooops! Maximum reached")
+        }
+
+        if(cartProducts){
+            updatedCart = [...cartProducts]
+
+            const existingIndex = cartProducts.findIndex((item) => item.id === product.id)
+
+            if(existingIndex > -1) {
+                updatedCart[existingIndex].quantity = ++updatedCart[existingIndex].quantity
+            }
+
+            setCartProducts(updatedCart)
+            localStorage.setItem('CartItems', JSON.stringify(updatedCart))
+        }
+
+    }, [cartProducts])
+
+
+    const handleCartQtyDecrease = useCallback((product: CartProductType) => {
+        let updatedCart
+        if(product.quantity === 1){
+            return toast.error("Ooops! Maximum reached")
+        }
+
+        if(cartProducts){
+            updatedCart = [...cartProducts]
+
+            const existingIndex = cartProducts.findIndex((item) => item.id === product.id)
+
+            if(existingIndex > -1) {
+                updatedCart[existingIndex].quantity = --updatedCart[existingIndex].quantity
+            }
+
+            setCartProducts(updatedCart)
+            localStorage.setItem('CartItems', JSON.stringify(updatedCart))
+        }
+
+    }, [cartProducts])
+
+    const handleClearCart = useCallback(() => {
+        setCartProducts(null)
+        setCartTotalQty(0)
+        localStorage.setItem("CartItems", JSON.stringify(null))
+    }, [])
+
     const value = {
         cartTotalQty,
+        cartTotalAmt,
         cartProducts,
-        handleAddProductToCart
+        handleAddProductToCart,
+        handleRemoveProductFromCart,
+        handleCartQtyIncrease,
+        handleCartQtyDecrease,
+        handleClearCart
     }
 
     return <CartContext.Provider value={value} {...props} />

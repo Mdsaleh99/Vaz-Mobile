@@ -1,7 +1,8 @@
 import Container from "@/app/components/Container";
-import { product } from "@/uitls/product";
+
 import ProductDetails from "./ProductDetails";
 import ListRating from "./ListRating";
+import { products } from "@/uitls/products";
 
 interface IParams {
     productId?: string
@@ -26,6 +27,7 @@ const Product = ({params} : {params: IParams}) => {
     // it is dynamic routing. to know more check below
     // console.log(params);  // output: { productId: 'prod' } value can be any thing which given as productId for here it is 'prod' it can be any thing
 
+    const product = products.find((item) => item.id === params.productId) // Returns the value of the first element in the array where predicate is true, and undefined otherwise.
     
     return ( 
         <div>
