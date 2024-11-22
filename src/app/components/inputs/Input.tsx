@@ -17,7 +17,7 @@ const Input:React.FC<InputProps> = ({id, label, type, disabled, required, regist
         <div className="w-full relative">
             <input autoComplete="off" id={id} disabled={disabled} {...register(id, {required})} placeholder="" type={type} className={`peer w-full p-4 pt-6 outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed ${errors[id] ? 'border-rose-400' : 'border-slate-300'}  ${errors[id] ? 'focus:border-rose-400' : 'focus:border-slate-300'}`} />
             {/* In CSS, the peer class is a utility provided by Tailwind CSS. It enables you to apply conditional styling to sibling elements or other parts of the UI based on the state of a particular element, such as a checkbox, radio button, or other interactive elements. */}
-            <label htmlFor={id} className="absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:translate-y-4">{label}</label>
+            <label htmlFor={id} className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 ${errors[id] ? 'text-rose-500' : 'text-slate-400'}`}>{label}</label>
         </div>
     );
 }
