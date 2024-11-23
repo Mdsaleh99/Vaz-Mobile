@@ -12,6 +12,8 @@ type CartContextType = {
     handleCartQtyIncrease: (product: CartProductType) => void
     handleCartQtyDecrease: (product: CartProductType) => void
     handleClearCart: () => void
+    paymentIntent: string | null
+    handleSetPaymentIntent: (val: string | null) => void
     
 }
 
@@ -27,18 +29,21 @@ export const CartContextProvider = (props: Props) => {
     const [cartTotalQty, setCartTotalQty] = useState(0)
     const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null)
     const [cartTotalAmt, setCartTotalAmt] = useState(0)
+    const [paymentIntent, setPaymentIntent] = useState<string | null>(null)
 
-    console.log("qty", cartTotalQty);
-    console.log("amount", cartTotalAmt);
+    // console.log("qty", cartTotalQty);
+    // console.log("amount", cartTotalAmt);
     
 
     useEffect(() => { // we using this because when we click on add to cart button at that time it storing the information in localstorage as we needed but when we refresh the page it showing add to cart button so we using this
 
         const cartItems: any = localStorage.getItem('CartItems')
         const cProducts: CartProductType[] | null = JSON.parse(cartItems)
+        const eShopPaymentIntent: any = localStorage.getItem('VazPaymentIntent')
+        const paymentIntent: string | null = JSON.parse(eShopPaymentIntent)
 
         setCartProducts(cProducts)
-
+        setPaymentIntent(paymentIntent)
     }, [])
 
 
@@ -147,6 +152,12 @@ export const CartContextProvider = (props: Props) => {
         localStorage.setItem("CartItems", JSON.stringify(null))
     }, [])
 
+
+    const handleSetPaymentIntent = useCallback((val: string | null) => {
+        setPaymentIntent(val)
+        localStorage.setItem('VazPaymentIntent', JSON.stringify(val))
+    }, [paymentIntent])
+
     const value = {
         cartTotalQty,
         cartTotalAmt,
@@ -155,7 +166,9 @@ export const CartContextProvider = (props: Props) => {
         handleRemoveProductFromCart,
         handleCartQtyIncrease,
         handleCartQtyDecrease,
-        handleClearCart
+        handleClearCart,
+        paymentIntent,
+        handleSetPaymentIntent
     }
 
     return <CartContext.Provider value={value} {...props} />

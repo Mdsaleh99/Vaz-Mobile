@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
@@ -10,8 +10,14 @@ import { AiOutlineGoogle } from "react-icons/ai";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { SafeUser } from "../../../types";
 
-const LoginForm = () => {
+
+interface LoginFormProps{
+    currentUser: SafeUser | null
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({currentUser}) => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
     const {register, handleSubmit, formState: {errors}} = useForm<FieldValues>({
@@ -21,6 +27,12 @@ const LoginForm = () => {
         }
     })
 
+    useEffect(() => {
+        if(currentUser){
+            router.push('/cart')
+            router.refresh()
+        }
+    }, [])
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true)
@@ -47,11 +59,16 @@ const LoginForm = () => {
         
     }
 
+    if(currentUser){
+        return (
+            <p className="text-center">Logged in. Redirecting.....</p>
+        )
+    }
 
     return ( 
         <>
             <Heading title="Sign In" />
-            <Button outline label="Continue with Google" icon={AiOutlineGoogle} onClick={() => {}} />
+            <Button outline label="Continue with Google" icon={AiOutlineGoogle} onClick={() => {signIn('google')}} />
             <hr className="bg-slate-400 w-full h-px" />
             <Input id="email" label="Email" disabled={isLoading} register={register} errors={errors} required />
             <Input id="password" label="Password" disabled={isLoading} register={register} errors={errors} type="password" required />
