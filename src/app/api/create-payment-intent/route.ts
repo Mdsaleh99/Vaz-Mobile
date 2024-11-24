@@ -15,7 +15,7 @@ const calculateOrderAmount = (items: CartProductType[]) => {
         return acc + itemTotal
     }, 0)
 
-    const price: any = totalPrice.toFixed(2)
+    const price: any = Math.floor(totalPrice).toFixed(2)
 
     return price
 }
