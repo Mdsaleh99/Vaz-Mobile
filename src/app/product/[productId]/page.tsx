@@ -3,6 +3,10 @@ import Container from "@/app/components/Container";
 import ProductDetails from "./ProductDetails";
 import ListRating from "./ListRating";
 import { products } from "@/uitls/products";
+import getProductById from "../../../../actions/getProductById";
+import NullData from "@/app/components/NullData";
+import AddRating from "./AddRating";
+import { getCurrentUser } from "../../../../actions/getCurrentUser";
 
 interface IParams {
     productId?: string
@@ -23,18 +27,23 @@ interface IParams {
 // it is a server component so this is not appear on browser but it will appear on server
 
 // Destructure `params` from the argument and assign it the type `IParams`
-const Product = ({params} : {params: IParams}) => {
+const Product = async({params} : {params: IParams}) => {
     // it is dynamic routing. to know more check below
     // console.log(params);  // output: { productId: 'prod' } value can be any thing which given as productId for here it is 'prod' it can be any thing
 
-    const product = products.find((item) => item.id === params.productId) // Returns the value of the first element in the array where predicate is true, and undefined otherwise.
+    // const product = products.find((item) => item.id === params.productId) // Returns the value of the first element in the array where predicate is true, and undefined otherwise.
+
+    const product = await getProductById(params)
+    const user = await getCurrentUser()
+
+    if(!product) return <NullData title="Oops! Product with the given id does not exist" />
     
     return ( 
         <div>
             <Container>
                 <ProductDetails product={product} />
                 <div className="flex flex-col mt-20 gap-4">
-                    <div>Add Rating</div>
+                    <AddRating product={product} user={user} />
                     <ListRating product={product} />
                 </div>
             </Container>
