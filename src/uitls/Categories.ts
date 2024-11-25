@@ -1,7 +1,7 @@
 import { AiFillApple } from "react-icons/ai";
 import { FaMobileAlt, FaSuitcase } from "react-icons/fa";
 import { MdSmartphone, MdStorefront } from "react-icons/md";
-import { SiOneplus, SiRealm, SiSamsung } from "react-icons/si";
+import { SiOneplus, SiSamsung } from "react-icons/si";
 
 
 export const categories = [
