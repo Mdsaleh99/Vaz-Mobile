@@ -5,7 +5,7 @@ import ManageOrderClient from "./ManageOrderClient";
 import { getCurrentUser } from "../../../../actions/getCurrentUser";
 import NullData from "@/app/components/NullData";
 import getOrders from "../../../../actions/getOrders";
-
+export const dynamic = 'force-dynamic';
 const ManageOrders = async() => {
 
     const orders = await getOrders()

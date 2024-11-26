@@ -7,7 +7,7 @@ import getUsers from "../../../actions/getUsers";
 import Container from "../components/Container";
 import BarGraph from "./BarGraph";
 import Summary from "./Summary";
-
+export const dynamic = 'force-dynamic';
 const Admin = async() => {
     const products = await getProducts({category: null})
     const orders = await getOrders()
