@@ -1,3 +1,4 @@
+"use client"
 import Container from "@/app/components/Container";
 import OrderClient from "./OrderClient";
 import NullData from "@/app/components/NullData";

@@ -1,3 +1,5 @@
+"use client"
+
 import getGraphData from "../../../actions/getGraphData";
 import getOrders from "../../../actions/getOrders";
 import getProducts from "../../../actions/getProducts";

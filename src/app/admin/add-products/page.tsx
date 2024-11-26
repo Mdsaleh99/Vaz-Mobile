@@ -1,3 +1,4 @@
+"use client"
 import Container from "@/app/components/Container";
 import AddProductForm from "./AddProductForm";
 import FormWrap from "@/app/FormWrap";

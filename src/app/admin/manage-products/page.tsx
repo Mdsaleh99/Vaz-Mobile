@@ -1,3 +1,5 @@
+"use client"
+
 import Container from "@/app/components/Container";
 import ManageProductClient from "./ManageProductClient";
 import getProducts from "../../../../actions/getProducts";

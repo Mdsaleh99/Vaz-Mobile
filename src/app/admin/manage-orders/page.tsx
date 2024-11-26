@@ -1,3 +1,5 @@
+"use client"
+
 import Container from "@/app/components/Container";
 import ManageOrderClient from "./ManageOrderClient";
 import { getCurrentUser } from "../../../../actions/getCurrentUser";
