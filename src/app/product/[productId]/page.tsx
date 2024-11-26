@@ -10,6 +10,10 @@ import NullData from "@/app/components/NullData";
 import AddRating from "./AddRating";
 import { getCurrentUser } from "../../../../actions/getCurrentUser";
 
+// Mark the route as dynamic to handle server logic
+export const dynamic = 'force-dynamic';
+
+
 interface IParams {
     productId?: string
 }
