@@ -1,5 +1,6 @@
 "use client"
 
+
 import { useRouter } from "next/navigation";
 import queryString from "query-string";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -12,10 +13,15 @@ const SearchBar = () => {
         }
     })
 
-    const onSubmit: SubmitHandler<FieldValues> = async(data) => {
-        if(!data.searchTerm) return router.push('/')
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        // console.log(data);
+        
+        if (!data.searchTerm) {
+            return router.push("/");
+            
+        }
         const url = queryString.stringifyUrl({
-            url: '/',
+            url: "/",
             query: {
                 searchTerm: data.searchTerm
             }
@@ -27,7 +33,7 @@ const SearchBar = () => {
 
     return ( 
         <div className="flex items-center">
-            <input className="p-2 border border-gray-300 rounded-l-md focus:outline-none focus:border-[0.5px] focus:border-slate-500 w-80" placeholder="Explore" type="text" autoComplete="off" {...register('searchTerm')} />
+            <input className="p-2 border border-gray-300 rounded-l-md focus:border-[0.5px] focus:border-slate-500 w-80" placeholder="Explore" type="text" autoComplete="off" {...register('searchTerm')} />
             <button onClick={handleSubmit(onSubmit)} className="bg-slate-700 hover:opacity-80 text-white p-2 rounded-r-md">Search</button>
         </div>
     );

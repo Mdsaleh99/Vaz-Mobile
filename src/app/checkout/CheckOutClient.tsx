@@ -41,16 +41,27 @@ const CheckOutClient = () => {
             }).then((res) => {
                 setLoading(false)
 
-                if(res.status === 401){
-                    return router.push('/login')
+                if(!res.ok){
+                    if(res.status === 401){
+                        router.push('/login')
+                        return null
+                    }
+
+                    throw new Error("Failed to create payment intent");
                 }
+                
 
                 return res.json()
             }).then((data) => {
                 console.log(data);
-                
-                setClientSecret(data.paymentIntent.client_secret)
-                handleSetPaymentIntent(data.paymentIntent.id)
+                if (data?.paymentIntent?.client_secret) {
+                    setClientSecret(data.paymentIntent.client_secret);
+                    handleSetPaymentIntent(data.paymentIntent.id);
+                  } else {
+                    throw new Error("Invalid payment intent data received");
+                  }
+                // setClientSecret(data.paymentIntent.client_secret)
+                // handleSetPaymentIntent(data.paymentIntent.id)
             }).catch((error) => {
                 setError(true)
 
@@ -59,10 +70,10 @@ const CheckOutClient = () => {
                 
             })
         }
-    }, [cartProducts, paymentIntent])
+    }, [cartProducts, paymentIntent, router, handleSetPaymentIntent])
 
     const options: StripeElementsOptions = {
-        clientSecret,
+        clientSecret: clientSecret || "",
         appearance: {
             theme: 'stripe',
             labels: 'floating'

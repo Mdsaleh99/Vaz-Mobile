@@ -1,5 +1,4 @@
 "use client"
-
 import { Product } from "@prisma/client";
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
@@ -60,7 +59,7 @@ const ManageProductClient: React.FC<ManageProductClientProps> = ({products}) => 
                     handleDelete(params.row.id, params.row.images)
                 }} />
                 <ActionBtn icon={MdRemoveRedEye} onClick={() => {
-                    router.push(`product/${params.row.id}`)
+                    router.push(`/product/${params.row.id}`)
                 }} />
             </div>
         }}
@@ -112,7 +111,7 @@ const ManageProductClient: React.FC<ManageProductClientProps> = ({products}) => 
 
     return ( 
         <div className="max-w-[1350px] m-auto text-xl">
-            <div className="mb-4 mt-8">
+            <div className="mb-4 mt-8 bg ">
                 <Heading title="Manage Products" />
             </div>
             <div style={{height: 600, width: "100%"}}>

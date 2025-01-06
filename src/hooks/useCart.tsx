@@ -24,6 +24,31 @@ interface Props {
     [propName: string] : any  // [propName: string] it can accept any kind of prop 
 }
 
+/*************  ✨ Codeium Command ⭐  *************/
+/**
+ * CartContextProvider:
+ * Provides the cart state and related actions to its child components.
+ * 
+ * - Initializes and manages the state for:
+ *   - cartTotalQty: The total quantity of items in the cart.
+ *   - cartProducts: List of products in the cart.
+ *   - cartTotalAmt: The total amount for the items in the cart.
+ *   - paymentIntent: The current payment intent, if any.
+ * 
+ * - Persists the cart state in local storage and retrieves it on initial load.
+ * 
+ * - Exposes functions to:
+ *   - Add/remove products from the cart.
+ *   - Increase/decrease the quantity of a product in the cart.
+ *   - Clear the cart.
+ *   - Set a payment intent.
+ * 
+ * - Uses React's Context API to provide state and functions to its children.
+ * 
+ * @param {Props} props - Additional props to be passed to the provider.
+ */
+
+/******  320843bc-1fd9-406e-b9de-9c9baf85874d  *******/
 export const CartContextProvider = (props: Props) => {
     
     const [cartTotalQty, setCartTotalQty] = useState(0)

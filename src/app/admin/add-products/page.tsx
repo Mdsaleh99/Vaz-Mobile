@@ -1,10 +1,10 @@
-"use client"
+
 import Container from "@/app/components/Container";
 import AddProductForm from "./AddProductForm";
 import FormWrap from "@/app/FormWrap";
 import { getCurrentUser } from "../../../../actions/getCurrentUser";
 import NullData from "@/app/components/NullData";
-export const dynamic = 'force-dynamic';
+
 const AddProducts = async() => {
     const currentUser = await getCurrentUser()
 

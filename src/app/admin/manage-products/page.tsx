@@ -1,11 +1,11 @@
-"use client"
+
 
 import Container from "@/app/components/Container";
 import ManageProductClient from "./ManageProductClient";
 import getProducts from "../../../../actions/getProducts";
 import { getCurrentUser } from "../../../../actions/getCurrentUser";
 import NullData from "@/app/components/NullData";
-export const dynamic = 'force-dynamic';
+
 const ManageProducts = async() => {
 
     const products = await getProducts({category: null})

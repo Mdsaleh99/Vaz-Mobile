@@ -1,3 +1,5 @@
+"use client"
+
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { IconType } from "react-icons";
@@ -18,28 +20,28 @@ const Category: React.FC<CategoryProps> = ({label, icon: Icon, selected}) => {
         if(label === "All"){
             router.push('/')
         } else{
-            let currentQuery = {}
+          let currentQuery = {};
 
-            if(params){
-                currentQuery = queryString.parse(params.toString())
+          if (params) {
+            currentQuery = queryString.parse(params.toString());
+          }
+
+          const updatedQuery: any = {
+            ...currentQuery,
+            category: label,
+          };
+
+          const url = queryString.stringifyUrl(
+            {
+              url: "/",
+              query: updatedQuery,
+            },
+            {
+              skipNull: true,
             }
+          );
 
-            const updatedQuery: any = {
-                ...currentQuery,
-                category: label
-            }
-
-            const url = queryString.stringifyUrl(
-                {
-                    url: '/',
-                    query: updatedQuery
-                },
-                {
-                    skipNull: true
-                }
-            )
-
-            router.push(url)
+          router.push(url);
         }
     }, [label, params, router])
 

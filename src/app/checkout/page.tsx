@@ -1,9 +1,9 @@
-"use client"
+export const dynamic = 'force-dynamic';
 import Container from "../components/Container";
 import FormWrap from "../FormWrap";
 import CheckOutClient from "./CheckOutClient";
 
-export const dynamic = 'force-dynamic';
+
 const CheckOut = () => {
     return ( 
         <div className="p-8">

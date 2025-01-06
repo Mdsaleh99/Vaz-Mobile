@@ -1,11 +1,11 @@
-"use client"
+
 
 import { getCurrentUser } from "../../../actions/getCurrentUser";
 import Container from "../components/Container";
 import CartClient from "./CartClient";
 
 
-export const dynamic = 'force-dynamic'
+// export const dynamic = 'force-dynamic'
 const Cart = async() => {
     // it is file base routing. to know more check below
 

@@ -1,5 +1,3 @@
-"use client"
-
 import { getCurrentUser } from "../../../actions/getCurrentUser";
 import Container from "../components/Container";
 import FormWrap from "../FormWrap";
