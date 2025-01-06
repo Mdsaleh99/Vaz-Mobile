@@ -4,6 +4,7 @@ import CredentialProvider from 'next-auth/providers/credentials'
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from "@/libs/prismadb"
 import bcrypt from "bcryptjs"
+export const dynamic = "force-dynamic";
 
 export const authOptions: AuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -54,7 +55,7 @@ export const authOptions: AuthOptions = {
     pages: {
         signIn: '/login'
     },
-    debug: process.env.NODE_ENV === 'development',
+    // debug: process.env.NODE_ENV === 'development', 
     session: {
         strategy: 'jwt'
     },

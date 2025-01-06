@@ -1,6 +1,7 @@
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import prisma from '@/libs/prismadb'
+export const dynamic = "force-dynamic";
 
 export async function getSession(){
     try {
@@ -39,7 +40,7 @@ export async function getCurrentUser(){
             emailVerified: currentUser.emailVerified?.toISOString() || null
         }
     } catch (error) {
-        console.log(error);
+        console.log("Error fetching current user:", error);
         return null
     }
 }
