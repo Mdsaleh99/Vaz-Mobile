@@ -1,5 +1,5 @@
-// export const revalidate = 0
-export const dynamic = "force-static";
+export const revalidate = 0
+
 
 
 import Container from "./components/Container";

@@ -1,7 +1,7 @@
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import prisma from '@/libs/prismadb'
-export const dynamic = "force-static";
+
 
 export async function getSession(){
     try {
