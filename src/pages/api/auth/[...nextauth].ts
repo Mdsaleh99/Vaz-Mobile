@@ -4,7 +4,7 @@ import CredentialProvider from 'next-auth/providers/credentials'
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from "@/libs/prismadb"
 import bcrypt from "bcryptjs"
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 export const authOptions: AuthOptions = {
     adapter: PrismaAdapter(prisma),
