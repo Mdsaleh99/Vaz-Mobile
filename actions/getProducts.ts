@@ -1,10 +1,10 @@
-import prisma from '@/libs/prismadb'
+import prisma from "@/libs/prismadb"
 
 export interface IProductParams {
     category?: string | null
     searchTerm?: string | null
 }
-
+// npx prisma db push
 
 export default async function getProducts(params: IProductParams){
     try {
